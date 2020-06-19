@@ -20,39 +20,39 @@ export default class SignUp extends Component {
     {
         
         return (
-            <View>
+            <View style={styles.container}>
                             <View>
                 <ImageBackground
-                    source={require("../../assets/icon.png")}
+                    source={require("../../assets/background.png")}
                     style={styles.imageBackground}
                 >
                 </ImageBackground>
             </View>
             <View style={styles.registerForm}>
-                <View><Text style={styles.title}>Thông tin tài khoản</Text></View>
-                <View>
-                    <Text>Email</Text>
-                    <TextInput placeholder="Your email.."></TextInput>
+                <View><Text style={styles.title}>Đăng kí tài khoản</Text></View>
+                <View >
+                    <Text style={styles.textCenter}>Email</Text>
+                    <TextInput placeholder="Your email.." style={styles.textCenter}></TextInput>
                 </View>
                 <View>
-                    <Text>Password</Text>
-                    <TextInput placeholder="Your password.."></TextInput>
+                    <Text style={styles.textCenter}>Password</Text>
+                    <TextInput placeholder="Your password.." style={styles.textCenter}></TextInput>
                 </View>
                 <View>
-                    <Text>Confirm Password</Text>
-                    <TextInput placeholder="Confirm your password.."></TextInput>
+                    <Text style={styles.textCenter}>Confirm Password</Text>
+                    <TextInput placeholder="Confirm your password.." style={styles.textCenter}></TextInput>
                 </View>
                 <View>
-                    <Text>Fullname</Text>
-                    <TextInput placeholder="Your fullname.."></TextInput>
+                    <Text style={styles.textCenter}>Fullname</Text>
+                    <TextInput placeholder="Your fullname.." style={styles.textCenter}></TextInput>
                 </View>
                 <View>
-                    <Text>Phone</Text>
-                    <TextInput placeholder="Your number phone.."></TextInput>
+                    <Text style={styles.textCenter}>Phone</Text>
+                    <TextInput placeholder="Your number phone.." style={styles.textCenter}></TextInput>
                 </View>
                 <View>
-                    <Text>Address</Text>
-                    <TextInput placeholder="Your address.."></TextInput>
+                    <Text style={styles.textCenter}>Address</Text>
+                    <TextInput placeholder="Your address.." style={styles.textCenter}></TextInput>
                 </View>
             </View>
 
@@ -86,14 +86,27 @@ const styles = StyleSheet.create({
         height:"75%",
         backgroundColor: "white",
         opacity:80,
-        width:"100%"
+        width:"100%",
+        padding: 20,
+        textAlign: "center"
     },
+    textCenter:{
+        width: "100%",
+        textAlign: "center",
+        borderColor: "black",
+        marginTop: 5,
+        paddingBottom: 5,
+        color: "gray"
+    },  
     title:{
         color:"black",
         width:"100%",
         fontWeight:"bold",
-        fontSize:"14px",
+        fontSize: 20,
         height:"auto",
-        alignItems:"center"
+        alignItems:"center",
+        textAlign: "center",
+        width: "100%",
+        marginBottom: 20
     }
   });
