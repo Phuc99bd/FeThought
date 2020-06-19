@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Login from "./screens/auth/login"
+import Login from "./screens/auth/signup"
 
 export default function App() {
   return (
