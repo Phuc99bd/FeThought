@@ -23,7 +23,7 @@ export default class SignUp extends Component {
             <View>
                             <View>
                 <ImageBackground
-                    source={require("../../assets/img/84444986_2981757651858692_3066881144998854656_n.jpg")}
+                    source={require("../../assets/icon.png")}
                     style={styles.imageBackground}
                 >
                 </ImageBackground>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     registerForm:{
         height:"75%",
         backgroundColor: "white",
-        opacity:"80%",
+        opacity:80,
         width:"100%"
     },
     title:{
