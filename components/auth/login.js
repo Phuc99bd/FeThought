@@ -9,11 +9,13 @@ import {
   Animated,
   Dimensions,
   TouchableOpacity,
-  AppRegistry
+  AppRegistry,
+  Button
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as Animatable from 'react-native-animatable';
+import { Actions } from "react-native-router-flux";
 
 export default class Login extends Component {
   constructor(props) {
@@ -38,11 +40,13 @@ export default class Login extends Component {
       });
     }
   }
-
+  
   _typing() {
     return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
   }
-
+  onSignUp(){
+    Actions.register();
+  }
   _animation() {
     Animated.timing(this.state.animation_login, {
       toValue: 40,
@@ -56,8 +60,9 @@ export default class Login extends Component {
         typing_password: false,
       });
     }, 150);
+   
   }
-
+  
   render() {
     const width = this.state.animation_login;
 
@@ -150,6 +155,7 @@ export default class Login extends Component {
           <View style={styles.signUp}>
             <Text style={{ color: "black" }}>New user?</Text>
             <Text style={{ color: "blue" }}> Sign up?</Text>
+            <Button onPress={()=> this.onSignUp()} title="Sign up?"/>
           </View>
         </View>
       </View>
