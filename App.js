@@ -8,8 +8,8 @@ export default function App() {
   return (
     <Router>
     <Stack key="root">
-      <Scene key="login" component={Login} title="Login" />
-      <Scene key="register" component={Register} title="Register" />
+      <Scene key="login" component={Login} title="Đăng nhập" />
+      <Scene key="register" component={Register} title="Đăng kí tài khoản" />
     </Stack>
   </Router>
   );

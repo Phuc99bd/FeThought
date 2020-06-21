@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
-  StatusBar,
   TextInput,
   Animated,
   Dimensions,
@@ -16,37 +14,24 @@ import { TypingAnimation } from 'react-native-typing-animation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as Animatable from 'react-native-animatable';
 import { Actions } from "react-native-router-flux";
-import Authention from "./authention";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typing_email: false,
-      typing_password: false,
-      animation_login: new Animated.Value(width - 40),
-      enable: true,
-      success: false
+        typing_email: false,
+        typing_password: false,
+        animation_login: new Animated.Value(width - 40),
+        enable: true,
     };
   }
   _foucus(value) {
-    if (value == "email") {
+    if (value == "otp") {
       this.setState({
         typing_email: true,
         typing_password: false,
       });
-    } else {
-      this.setState({
-        typing_email: false,
-        typing_password: true,
-      });
     }
-  }
-  _typing() {
-    return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
-  }
-  onSignUp(){
-    Actions.register();
   }
   _animation() {
     Animated.timing(this.state.animation_login, {
@@ -61,41 +46,15 @@ export default class Login extends Component {
         typing_password: false,
       });
     }, 150);
-    this.state.success = true;
    
   }
-  
+  _typing() {
+    return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
+  }
   render() {
     const width = this.state.animation_login;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <ImageBackground
-            source={require("../../assets/background.png")}
-            style={styles.imageBackground}
-          ></ImageBackground>
-
-          <Text
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              fontSize: 30,
-            }}
-          >
-            Thought Flash
-          </Text>
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 20
-            }}
-          >
-            Sign in to continute
-          </Text>
-        </View>
-        {this.state.success ? <Authention></Authention> :
         <View style={styles.footer}>
           <Text
             style={[
@@ -105,37 +64,19 @@ export default class Login extends Component {
               },
             ]}
           >
-            E-mail
+            Mã OTP
           </Text>
           <View style={styles.action}>
             <TextInput
-              placeholder="Your email.."
+              placeholder="My OTP"
               style={styles.textInput}
-              onFocus={() => this._foucus("email")}
+              onFocus={() => this._foucus("otp")}
             />
             {this.state.typing_email ? this._typing() : null}
           </View>
-
-          <Text
-            style={[
-              styles.title,
-              {
-                marginTop: 20,
-              },
-            ]}
-          >
-            Password
-          </Text>
-          <View style={styles.action}>
-            <TextInput
-              secureTextEntry
-              placeholder="Your password.."
-              style={styles.textInput}
-              onFocus={() => this._foucus("password")}
-            />
-            {this.state.typing_password ? this._typing() : null}
+          <View style={styles.action,{margin: 20}}>
+            <Button title="Send OTP again" style={styles.textLogin}/>
           </View>
-
           <TouchableOpacity onPress={() => this._animation()}>
             <View style={styles.button_container}>
               <Animated.View
@@ -147,7 +88,7 @@ export default class Login extends Component {
                 ]}
               >
                 {this.state.enable ? (
-                  <Text style={styles.textLogin}>Login</Text>
+                  <Text style={styles.textLogin}>Xác nhận</Text>
                 ) : (
                   <Animatable.View animation="bounceIn" delay={50}>
                     <FontAwesome name="check" color="white" size={20} />
@@ -157,13 +98,7 @@ export default class Login extends Component {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.signUp}>
-            <Text style={{ color: "blue" }}>Forgot password?</Text>
-            <Text style={{ color: "blue" }} onPress={()=> this.onSignUp()}> Sign up?</Text>
-          </View>
         </View>
-        }
-     </View>
     );
   }
 }
@@ -228,4 +163,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
