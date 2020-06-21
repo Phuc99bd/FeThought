@@ -21,41 +21,25 @@ export default class SignUp extends Component {
         
         return (
             <View style={styles.container}>
-                            <View>
-                <ImageBackground
-                    source={require("../../assets/background.png")}
-                    style={styles.imageBackground}
-                >
-                </ImageBackground>
-            </View>
-            <View style={styles.registerForm}>
-                <View><Text style={styles.title}>Đăng kí tài khoản</Text></View>
-                <View >
-                    <Text style={styles.textCenter}>Email</Text>
-                    <TextInput placeholder="Your email.." style={styles.textCenter}></TextInput>
+                <View style={styles.registerForm}>
+                    <View><Text style={styles.title}>Đăng kí tài khoản</Text></View>
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Email</Text>
+                        <TextInput placeholder="Your email.." style={styles.textInput}></TextInput>
+                    </View>
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Password</Text>
+                        <TextInput placeholder="Your password.." style={styles.textInput}></TextInput>
+                    </View>
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Repeat Password</Text>
+                        <TextInput placeholder="Confirm your password.." style={styles.textInput}></TextInput>
+                    </View>
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Fullname</Text>
+                        <TextInput placeholder="Your fullname.." style={styles.textInput}></TextInput>
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.textCenter}>Password</Text>
-                    <TextInput placeholder="Your password.." style={styles.textCenter}></TextInput>
-                </View>
-                <View>
-                    <Text style={styles.textCenter}>Confirm Password</Text>
-                    <TextInput placeholder="Confirm your password.." style={styles.textCenter}></TextInput>
-                </View>
-                <View>
-                    <Text style={styles.textCenter}>Fullname</Text>
-                    <TextInput placeholder="Your fullname.." style={styles.textCenter}></TextInput>
-                </View>
-                <View>
-                    <Text style={styles.textCenter}>Phone</Text>
-                    <TextInput placeholder="Your number phone.." style={styles.textCenter}></TextInput>
-                </View>
-                <View>
-                    <Text style={styles.textCenter}>Address</Text>
-                    <TextInput placeholder="Your address.." style={styles.textCenter}></TextInput>
-                </View>
-            </View>
-
             </View>
         );
     }
@@ -63,7 +47,7 @@ export default class SignUp extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#00d2ff",
       justifyContent: "center",
     },
     header: {
@@ -85,13 +69,35 @@ const styles = StyleSheet.create({
     registerForm:{
         height:"75%",
         backgroundColor: "white",
-        opacity:80,
+        // opacity:1,
         width:"100%",
         padding: 20,
         textAlign: "center"
     },
+    label:{
+        width: "30%",
+        textAlign: "center",
+        borderColor: "black",
+        marginTop: 5,
+        paddingBottom: 5,
+        color: "gray",
+        paddingTop:15,
+       
+    },
+    textInput:{
+        width: "60%",
+        paddingLeft:10,
+        paddingTop:5,
+        borderColor: "black",
+        marginTop: 5,
+        paddingBottom: 5,
+        color: "gray",
+        borderWidth:1,
+        borderColor:"#d7d7d7",
+        borderRadius:5
+    },
     textCenter:{
-        width: "100%",
+        width: "50%",
         textAlign: "center",
         borderColor: "black",
         marginTop: 5,
@@ -99,6 +105,8 @@ const styles = StyleSheet.create({
         color: "gray"
     },  
     title:{
+        borderBottomColor:"#d7d7d7",
+        borderBottomWidth:1,
         color:"black",
         width:"100%",
         fontWeight:"bold",
@@ -107,6 +115,10 @@ const styles = StyleSheet.create({
         alignItems:"center",
         textAlign: "center",
         width: "100%",
-        marginBottom: 20
+        marginBottom: 20,
+        paddingBottom:10
+    },
+    col:{
+        flexDirection:"row"
     }
   });
