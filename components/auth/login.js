@@ -17,8 +17,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as Animatable from 'react-native-animatable';
 import { Actions } from "react-native-router-flux";
 import Authention from "./authention";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -167,6 +168,16 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const width = Dimensions.get("screen").width;
 
