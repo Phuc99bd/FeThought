@@ -15,17 +15,19 @@ const initialState = {
     authention: false,
     active_account: false,
     new_password: false,
-    redirect_login: false
+    redirect_login: false,
+    email: null,
+    message: null
 }
 
 const authReducer = (state = initialState , action) => {
     switch (action.type) {
         case AUTH_LOGIN_COMPLETED:
-            return {...state, success: true}
+            return {...state, success: true , email: action.email}
         case REGISTER_COMPLETED:
             return {...state,success: action.success,error: null}
         case AUTH_AUTHENTION_FAIL:
-            return {...state,error: action.error}
+            return {...state,error: action.error , message: action.message }
         case AUTH_ACTIVE_ACCOUNT:
             return {...state,active_account: true}
         case AUTH_AUTHENTION_COMPLETED:
