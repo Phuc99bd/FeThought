@@ -10,63 +10,79 @@ import {
   Dimensions,
   TouchableOpacity,
   AppRegistry,
-  Button
+  Button,
+  ToastAndroid
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as Animatable from 'react-native-animatable';
 import { Actions } from "react-native-router-flux";
+import Authention from "./authention";
+import {  useState } from "react";
+import { LoginRequest  } from "../../services/auth/action";
+import { useDispatch } from "react-redux";
+import propAuth from "../../services/auth/selector";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      typing_email: false,
-      typing_password: false,
-      animation_login: new Animated.Value(width - 40),
-      enable: true,
-    };
-  }
-  _foucus(value) {
-    if (value == "email") {
-      this.setState({
-        typing_email: true,
-        typing_password: false,
-      });
-    } else {
-      this.setState({
-        typing_email: false,
-        typing_password: true,
-      });
-    }
-  }
-  
-  _typing() {
-    return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
-  }
-  onSignUp(){
-    Actions.register();
-  }
-  _animation() {
-    Animated.timing(this.state.animation_login, {
+const Login= ()=>{
+  let [login,setLogin] = useState(false),
+   [email,setEmail] = useState(""),
+   [password,setPassword] = useState(""),
+   [typing_email , setType_email ] = useState(false),
+   [typing_password , setType_password ] = useState(false)
+
+  let dispatch = useDispatch();
+  let authProps = propAuth().auth;
+
+  const onLogin = ()=>{
+
+    Animated.timing(new Animated.Value(width - 40), {
       toValue: 40,
       duration: 250,
     }).start();
-
-    setTimeout(() => {
-      this.setState({
-        enable: false,
-        typing_email: false,
-        typing_password: false,
-      });
+    setTimeout(async () => {
+      setLogin(true);
+      await dispatch(LoginRequest(email,password));
+      showToast();
+      
+      console.log(authProps);
+      
     }, 150);
-   
-  }
-  
-  render() {
-    const width = this.state.animation_login;
 
-    return (
+  }
+  const showToast = () => {
+    let message="";
+    if(authProps.error){
+      if(authProps.error === ""){
+        message = authProps.message;
+    }
+    else{
+        authProps.error.map(e=>{
+          message+= `${e}\n`
+        });
+    }    
+    ToastAndroid.showWithGravity(message, ToastAndroid.SHORT,ToastAndroid.CENTER);
+    }
+  };
+
+  const  _typing = ()=> {
+    return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
+  }
+
+  const onFocus = (name)=>{
+    if(name == "email"){
+      setType_email(true);
+      setType_password(false);
+    }
+    else{
+      setType_email(false);
+      setType_password(true);
+    }
+  }
+
+  const onSignUp = ()=>{
+    Actions.register();
+  }
+  return (
       <View style={styles.container}>
         <View style={styles.header}>
           <ImageBackground
@@ -85,12 +101,15 @@ export default class Login extends Component {
           </Text>
           <Text
             style={{
-              color: "yellow",
+              color: "red",
+              textAlign: "center",
+              fontSize: 20
             }}
           >
             Sign in to continute
           </Text>
         </View>
+        {authProps.success ? <Authention></Authention> :
         <View style={styles.footer}>
           <Text
             style={[
@@ -106,9 +125,10 @@ export default class Login extends Component {
             <TextInput
               placeholder="Your email.."
               style={styles.textInput}
-              onFocus={() => this._foucus("email")}
+              onChangeText={(text)=> setEmail(text)}
+              onFocus={()=>onFocus("email")}
             />
-            {this.state.typing_email ? this._typing() : null}
+            {typing_email ? _typing() : null}
           </View>
 
           <Text
@@ -126,12 +146,13 @@ export default class Login extends Component {
               secureTextEntry
               placeholder="Your password.."
               style={styles.textInput}
-              onFocus={() => this._foucus("password")}
+              onChangeText={(text)=> setPassword(text)}
+              onFocus={()=>onFocus("password")}
             />
-            {this.state.typing_password ? this._typing() : null}
+            {typing_password ? _typing() : null}
           </View>
 
-          <TouchableOpacity onPress={() => this._animation()}>
+          <TouchableOpacity onPress={()=>onLogin()}>
             <View style={styles.button_container}>
               <Animated.View
                 style={[
@@ -141,8 +162,8 @@ export default class Login extends Component {
                   },
                 ]}
               >
-                {this.state.enable ? (
-                  <Text style={styles.textLogin}>Login</Text>
+                { !login ? (
+                  <Text style={styles.textLogin}  >Login</Text>
                 ) : (
                   <Animatable.View animation="bounceIn" delay={50}>
                     <FontAwesome name="check" color="white" size={20} />
@@ -153,15 +174,16 @@ export default class Login extends Component {
           </TouchableOpacity>
 
           <View style={styles.signUp}>
-            <Text style={{ color: "black" }}>New user?</Text>
-            <Text style={{ color: "blue" }}> Sign up?</Text>
-            <Button onPress={()=> this.onSignUp()} title="Sign up?"/>
+            <Text style={{ color: "blue" }}>Forgot password?</Text>
+            <Text style={{ color: "blue" }} onPress={()=> onSignUp()}> Sign up?</Text>
           </View>
         </View>
-      </View>
+        }
+     </View>
     );
-  }
 }
+
+export default Login;
 
 const width = Dimensions.get("screen").width;
 
