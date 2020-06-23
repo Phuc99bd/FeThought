@@ -9,9 +9,6 @@ import {
   Animated,
   Dimensions,
   TouchableOpacity,
-  AppRegistry,
-  Button,
-  ToastAndroid
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -22,10 +19,11 @@ import {  useState } from "react";
 import { LoginRequest  } from "../../services/auth/action";
 import { useDispatch } from "react-redux";
 import propAuth from "../../services/auth/selector";
+import Dialog from "react-native-dialog";
+
 
 const Login= ()=>{
-  let [login,setLogin] = useState(false),
-   [email,setEmail] = useState(""),
+  let [email,setEmail] = useState(""),
    [password,setPassword] = useState(""),
    [typing_email , setType_email ] = useState(false),
    [typing_password , setType_password ] = useState(false)
@@ -39,28 +37,33 @@ const Login= ()=>{
       toValue: 40,
       duration: 250,
     }).start();
-    setTimeout(async () => {
-      setLogin(true);
-      await dispatch(LoginRequest(email,password));
-      showToast();
-      
-      console.log(authProps);
-      
-    }, 150);
-
+    dispatch(LoginRequest(email,password));
   }
+  const onRefesh = ()=>{
+    dispatch({type: 'AUTH_REFESH'});
+  }
+
   const showToast = () => {
     let message="";
     if(authProps.error){
-      if(authProps.error === ""){
+      if(authProps.error == "error"){
         message = authProps.message;
-    }
-    else{
-        authProps.error.map(e=>{
-          message+= `${e}\n`
-        });
-    }    
-    ToastAndroid.showWithGravity(message, ToastAndroid.SHORT,ToastAndroid.CENTER);
+      }
+      else{
+          authProps.error.map(e=>{
+            message+= `${e}\n`
+          });
+      }
+
+    return (
+      <Dialog.Container visible={authProps.login}>
+        <Dialog.Title>Error</Dialog.Title>
+        <Dialog.Description>
+          {message}
+        </Dialog.Description>
+        <Dialog.Button label="Ok" onPress={()=> onRefesh()}/>
+      </Dialog.Container>
+    )
     }
   };
 
@@ -111,6 +114,8 @@ const Login= ()=>{
         </View>
         {authProps.success ? <Authention></Authention> :
         <View style={styles.footer}>
+          {authProps.login ? showToast() : null}
+
           <Text
             style={[
               styles.title,
@@ -125,7 +130,7 @@ const Login= ()=>{
             <TextInput
               placeholder="Your email.."
               style={styles.textInput}
-              onChangeText={(text)=> setEmail(text)}
+              onChangeText={(text)=> setEmail(text) }
               onFocus={()=>onFocus("email")}
             />
             {typing_email ? _typing() : null}
@@ -162,7 +167,7 @@ const Login= ()=>{
                   },
                 ]}
               >
-                { !login ? (
+                { !authProps.login ? (
                   <Text style={styles.textLogin}  >Login</Text>
                 ) : (
                   <Animatable.View animation="bounceIn" delay={50}>
