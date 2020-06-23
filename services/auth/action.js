@@ -29,10 +29,9 @@ export const LoginRequest = (email , password)=>{
         )
         .then(async(response)=>{
             let data= await response.json();
-            console.log(data);
             
             switch(response.status){
-                case 404:
+                case 404:                    
                     dispatch({type:AUTH_AUTHENTION_FAIL ,error: data.data , message: data.message });
                     break;
                 case 200:        

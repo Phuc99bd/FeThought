@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component , useState} from "react";
 import {
   View,
   Text,
@@ -11,50 +11,34 @@ import {
   Button
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import * as Animatable from 'react-native-animatable';
+
 import { Actions } from "react-native-router-flux";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        typing_email: false,
-        typing_password: false,
-        animation_login: new Animated.Value(width - 40),
-        enable: true,
-    };
-  }
-  _foucus(value) {
+const Authention  = ()=>{
+  let [typing_email , setType_email ] = useState(false);
+  const width = Dimensions.get("screen").width;
+
+  const _foucus = (value)=> {
     if (value == "otp") {
-      this.setState({
-        typing_email: true,
-        typing_password: false,
-      });
+      setType_email(true);
     }
   }
-  _animation() {
-    Animated.timing(this.state.animation_login, {
+  const _animation = ()=> {
+    Animated.timing(new Animated.Value(width - 40), {
       toValue: 40,
       duration: 250,
     }).start();
 
     setTimeout(() => {
-      this.setState({
-        enable: false,
-        typing_email: false,
-        typing_password: false,
-      });
+      setType_email(false);
     }, 150);
    
   }
-  _typing() {
+  const _typing = ()=> {
     return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
   }
-  render() {
-    const width = this.state.animation_login;
-
-    return (
+  
+  return (
         <View style={styles.footer}>
           <Text
             style={[
@@ -70,14 +54,14 @@ export default class Login extends Component {
             <TextInput
               placeholder="My OTP"
               style={styles.textInput}
-              onFocus={() => this._foucus("otp")}
+              onFocus={() => _foucus("otp")}
             />
-            {this.state.typing_email ? this._typing() : null}
+           
           </View>
           <View style={styles.action,{margin: 20}}>
             <Button title="Send OTP again" style={styles.textLogin}/>
           </View>
-          <TouchableOpacity onPress={() => this._animation()}>
+          <TouchableOpacity onPress={()=>_animation()}>
             <View style={styles.button_container}>
               <Animated.View
                 style={[
@@ -87,23 +71,19 @@ export default class Login extends Component {
                   },
                 ]}
               >
-                {this.state.enable ? (
                   <Text style={styles.textLogin}>Xác nhận</Text>
-                ) : (
-                  <Animatable.View animation="bounceIn" delay={50}>
-                    <FontAwesome name="check" color="white" size={20} />
-                  </Animatable.View>
-                )}
+                {typing_email ? _typing() : null}
               </Animated.View>
             </View>
           </TouchableOpacity>
 
         </View>
     );
-  }
+  
 }
 
-const width = Dimensions.get("screen").width;
+export default Authention;
+
 
 const styles = StyleSheet.create({
   container: {
