@@ -9,7 +9,8 @@ import {
   Animated,
   Dimensions,
   TouchableOpacity,
-  AppRegistry
+  AppRegistry,
+  Button
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -25,19 +26,27 @@ export default class SignUp extends Component {
                     <View><Text style={styles.title}>Đăng kí tài khoản</Text></View>
                     <View style={styles.col}>
                         <Text style={styles.label}>Email</Text>
-                        <TextInput placeholder="Your email.." style={styles.textInput}></TextInput>
+                        <TextInput placeholder="Nhập email..." style={styles.textInput}></TextInput>
+                    </View>
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Tài khoản</Text>
+                        <TextInput placeholder="Nhập tên tài khoản..." style={styles.textInput}></TextInput>
                     </View>
                     <View style={styles.col}>
                         <Text style={styles.label}>Password</Text>
-                        <TextInput placeholder="Your password.." style={styles.textInput}></TextInput>
+                        <TextInput placeholder="Nhập mật khẩu của bạn..." style={styles.textInput}></TextInput>
                     </View>
                     <View style={styles.col}>
-                        <Text style={styles.label}>Repeat Password</Text>
-                        <TextInput placeholder="Confirm your password.." style={styles.textInput}></TextInput>
+                        <Text style={styles.label}>Re-Password</Text>
+                        <TextInput placeholder="Nhận lại mật khẩu..." style={styles.textInput}></TextInput>
                     </View>
                     <View style={styles.col}>
                         <Text style={styles.label}>Fullname</Text>
-                        <TextInput placeholder="Your fullname.." style={styles.textInput}></TextInput>
+                        <TextInput placeholder="Họ và tên..." style={styles.textInput}></TextInput>
+                    </View>
+                    <View style={styles.col}>
+                        {/* <Button onPress={()=> this.onSignUp()} title="Đăng ký"/>
+                        <Button onPress={()=> this.onSignUp()} title="Hủy Bỏ"/> */}
                     </View>
                 </View>
             </View>
