@@ -10,6 +10,7 @@ import {
     AUTH_AUTHENTION_FAIL
 } from "./actionType";
 let baseURL = `https://thoughtflash.herokuapp.com/api/v1`;
+import { AsyncStorage } from "react-native";
 
 export const LoginRequest = (email , password)=>{
     return async dispatch=>{
@@ -45,4 +46,32 @@ export const LoginRequest = (email , password)=>{
         .catch((error) => {
         }); 
     }
+}
+
+export const AuthentionRequest = (email,otp)=>{
+    return async dispatch => {
+        fetch(`${baseURL}/auth/verify-otp?email=${email}&otp=${otp}`,{
+            method: "GET"
+        })
+        .then(async (response)=>{
+            let data = await response.json();
+            switch(response.status){
+                case 404:
+                    dispatch({type:AUTH_AUTHENTION_FAIL ,error: data.data , message: data.message });
+                    break;
+                case 200:        
+                    data = data.data;
+                    AsyncStorage.setItem("user",data.user);
+                    dispatch({ type: AUTH_AUTHENTION_COMPLETED });
+                    break;
+                default:
+                    break;
+            }
+        })
+    }
+}
+
+export const SendOTP = (email)=>{
+    fetch(`${baseURL}/auth/get-otp?email=${email}&type=login`).then(async res=>{
+    })
 }

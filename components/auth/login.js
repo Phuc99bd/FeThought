@@ -42,7 +42,9 @@ const Login= ()=>{
   const onRefesh = ()=>{
     dispatch({type: 'AUTH_REFESH'});
   }
-
+  if(authProps.authention){
+    Actions.register();
+  }
   const showToast = () => {
     let message="";
     if(authProps.error){

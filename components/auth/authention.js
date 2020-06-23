@@ -12,34 +12,82 @@ import {
 } from "react-native";
 import { TypingAnimation } from 'react-native-typing-animation';
 
+import propAuth from "../../services/auth/selector";
+import Dialog from "react-native-dialog";
+import { AuthentionRequest,SendOTP  } from "../../services/auth/action";
+import { useDispatch } from "react-redux";
 import { Actions } from "react-native-router-flux";
+
 
 const Authention  = ()=>{
   let [typing_email , setType_email ] = useState(false);
   const width = Dimensions.get("screen").width;
+  let [sending,setSending] = useState(false),
+  [otp,setOTP] = useState("");
+
+  const dispatch = useDispatch();
+  let authProps = propAuth().auth;
 
   const _foucus = (value)=> {
     if (value == "otp") {
       setType_email(true);
     }
   }
+  // hideNavBar={true} 
   const _animation = ()=> {
     Animated.timing(new Animated.Value(width - 40), {
       toValue: 40,
       duration: 250,
     }).start();
 
-    setTimeout(() => {
-      setType_email(false);
-    }, 150);
+    dispatch(AuthentionRequest(authProps.email,otp));
    
   }
   const _typing = ()=> {
     return <TypingAnimation dotColor="#93278f" style={{ marginRight: 25 }} />;
   }
+  if(authProps.authention){
+    Actions.register();
+  }
   
+  const showToast = () => {
+    let message="";
+    if(authProps.error){
+      if(authProps.error == "error"){
+        message = authProps.message;
+      }
+      else{
+          authProps.error.map(e=>{
+            message+= `${e}\n`
+          });
+      }
+
+    return (
+      <Dialog.Container visible={authProps.login}>
+        <Dialog.Title>Error</Dialog.Title>
+        <Dialog.Description>
+          {message}
+        </Dialog.Description>
+        <Dialog.Button label="Ok" onPress={()=> onRefesh()}/>
+      </Dialog.Container>
+    )
+    }
+  };
+  const onRefesh = ()=>{
+    dispatch({type: 'AUTH_REFESH'});
+  }
+  const onSendOTP =()=>{
+    setSending(true)
+    SendOTP(authProps.email);
+
+    setTimeout(()=>{
+     setSending(false); 
+    },3000);
+  }
+
   return (
         <View style={styles.footer}>
+          {authProps.login ? showToast() : null}
           <Text
             style={[
               styles.title,
@@ -54,12 +102,17 @@ const Authention  = ()=>{
             <TextInput
               placeholder="My OTP"
               style={styles.textInput}
-              onFocus={() => _foucus("otp")}
+              onFocus={() => _foucus("otp")
+              }
+              onChangeText={(text)=>setOTP(text)}
             />
-           
+              {typing_email ? _typing() : null}
+
           </View>
           <View style={styles.action,{margin: 20}}>
-            <Button title="Send OTP again" style={styles.textLogin}/>
+            <Button title="Send OTP again" style={styles.textLogin} onPress={()=> onSendOTP()}
+              disabled={sending}
+            />
           </View>
           <TouchableOpacity onPress={()=>_animation()}>
             <View style={styles.button_container}>
@@ -72,7 +125,6 @@ const Authention  = ()=>{
                 ]}
               >
                   <Text style={styles.textLogin}>Xác nhận</Text>
-                {typing_email ? _typing() : null}
               </Animated.View>
             </View>
           </TouchableOpacity>
