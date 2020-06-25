@@ -1,51 +1,32 @@
-import React, { Component } from "react";
+import React, { Component , useState} from "react";
 import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
-  StatusBar,
   TextInput,
   Animated,
   Dimensions,
   TouchableOpacity,
   AppRegistry,
-  Button,
-  ToastAndroid
+  Button
 } from "react-native";
-import { TypingAnimation } from 'react-native-typing-animation';
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import * as Animatable from 'react-native-animatable';
-import { Actions } from "react-native-router-flux";
-import Authention from "./authention";
-import {  useState } from "react";
-import { LoginRequest  } from "../../services/auth/action";
-import { useDispatch } from "react-redux";
-import propAuth from "../../services/auth/selector";
-import { render } from "react-dom";
 
-export default class Forgot extends Component()
-{
-    render(){
+
+const Forgot = () =>{
         return (
             <View style={styles.container}>
-            <View style={styles.registerForm}>
-                <View><Text style={styles.title}>Quên mật khẩu tài khoản</Text></View>
-                <View style={styles.col}>
-                    <Text style={styles.label}>Email Address</Text>
-                    <TextInput placeholder="Nhập email của bạn..." style={styles.textInput}></TextInput>
-                </View>
-                
+                    <View style={styles.col}>
+                        <Text style={styles.label}>Email Address</Text>
+                        <TextInput placeholder="Nhập email của bạn..." style={styles.textInput}></TextInput>
+                    </View>
             </View>
-        </View>
-
-        )
-    }
+        );
 }
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#00d2ff",
+    //   backgroundColor: "#00d2ff",
       justifyContent: "center",
     },
     header: {
@@ -78,7 +59,7 @@ const styles = StyleSheet.create({
         borderColor: "black",
         marginTop: 5,
         paddingBottom: 5,
-        color: "gray",
+        color: "black",
         paddingTop:15,
        
     },
@@ -102,8 +83,8 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingBottom: 5,
         color: "gray",
-        borderWidth:1,
-        borderColor:"#d7d7d7",
+        borderWidth:2,
+        borderColor:"#00d2ff",
         borderRadius:5
     },
     textCenter:{
@@ -132,3 +113,5 @@ const styles = StyleSheet.create({
         flexDirection:"row"
     }
   });
+
+  export default Forgot;

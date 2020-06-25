@@ -87,6 +87,12 @@ const Login= ()=>{
   const onSignUp = ()=>{
     Actions.register();
   }
+  const onForgot = () =>{
+    Actions.forgot();
+  }
+  const onProfile = () =>{
+    Actions.profile();
+  }
   return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -181,8 +187,9 @@ const Login= ()=>{
           </TouchableOpacity>
 
           <View style={styles.signUp}>
-            <Text style={{ color: "blue" }}>Forgot password?</Text>
+            <Text style={{ color: "blue" }} onPress={()=>onForgot()}>Forgot password?</Text>
             <Text style={{ color: "blue" }} onPress={()=> onSignUp()}> Sign up?</Text>
+            <Text onPress={()=>onProfile()}>profile</Text>
           </View>
         </View>
         }

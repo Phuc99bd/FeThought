@@ -10,124 +10,175 @@ import {
   Dimensions,
   TouchableOpacity,
   AppRegistry,
-  Button
+  Button,
+  Image
 } from "react-native";
-import { TypingAnimation } from 'react-native-typing-animation';
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import * as Animatable from 'react-native-animatable';
-const width = Dimensions.get("screen").width;
-export default class SignUp extends Component {
-    render()
-    {
-        
-        return (
-            <View style={styles.container}>
-                <View style={styles.registerForm}>
-                    <View><Text style={styles.title}>Đăng kí tài khoản</Text></View>
-                    <View style={styles.col}>
-                        <Text style={styles.label}>Email</Text>
-                        <TextInput placeholder="Nhập email..." style={styles.textInput}></TextInput>
+import { Actions } from "react-native-router-flux";
+
+
+const Register = () =>{
+    return (
+        <View style={styles.index}>
+            <Image style={styles.backgroundImage} source={require("../../assets/img/backgroud/register.jpg")}></Image>
+            <View style={styles.frmRegister}>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Họ và tên</Text>
                     </View>
-                    <View style={styles.col}>
-                        <Text style={styles.label}>Tài khoản</Text>
-                        <TextInput placeholder="Nhập tên tài khoản..." style={styles.textInput}></TextInput>
-                    </View>
-                    <View style={styles.col}>
-                        <Text style={styles.label}>Password</Text>
-                        <TextInput placeholder="Nhập mật khẩu của bạn..." style={styles.textInput}></TextInput>
-                    </View>
-                    <View style={styles.col}>
-                        <Text style={styles.label}>Re-Password</Text>
-                        <TextInput placeholder="Nhận lại mật khẩu..." style={styles.textInput}></TextInput>
-                    </View>
-                    <View style={styles.col}>
-                        <Text style={styles.label}>Fullname</Text>
-                        <TextInput placeholder="Họ và tên..." style={styles.textInput}></TextInput>
-                    </View>
-                    <View style={styles.col}>
-                        {/* <Button onPress={()=> this.onSignUp()} title="Đăng ký"/>
-                        <Button onPress={()=> this.onSignUp()} title="Hủy Bỏ"/> */}
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập họ và tên của bạn..."></TextInput>
                     </View>
                 </View>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Email</Text>
+                    </View>
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập email của bạn..."></TextInput>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Tài khoản</Text>
+                    </View>
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập Tên tài khoản của bạn..."></TextInput>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Mật khẩu</Text>
+                    </View>
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập mật khẩu của bạn..."></TextInput>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Nhập lại</Text>
+                    </View>
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập lại mật khẩu của bạn..."></TextInput>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.w25}>
+                        <Text style={styles.label}>Điện thoại</Text>
+                    </View>
+                    <View style={styles.w75}>
+                        <TextInput style={styles.textInput} placeholder="Nhập điện thoại của bạn..."></TextInput>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <View style={styles.w50}>
+                        <Button style={styles.btnPrimary} title="Đăng ký"></Button>
+                    </View>
+                    <View style={styles.w50}>
+                        <Button style={styles.btnDanger} color="#e10000" title="Hủy bỏ"></Button>
+                    </View>
+                </View>
+                <View style={styles.borderTop}>
+                    <Image style={styles.logo} source={require("../../assets/img/icon.png")}></Image>
+                </View>
             </View>
-        );
-    }
+        </View>
+    );
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#00d2ff",
-      justifyContent: "center",
-    },
-    header: {
-      flex: 1,
-    },
-    footer: {
-      flex: 1,
-      padding: 20,
-    },
-    imageBackground: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      height: "100%",
-      position:"absolute",
-      
-    },
-    registerForm:{
-        height:"75%",
-        backgroundColor: "white",
-        // opacity:1,
+    index:{
+        flex:1,
         width:"100%",
-        padding: 20,
-        textAlign: "center"
+        height:"100%",
+        justifyContent:"center",
+        position:"absolute"
+    },
+    backgroundImage:{
+        flex:1,
+        width:"100%",
+        height:"100%",
+
+    },
+    frmRegister:{
+        flex:1,
+        width:"100%",
+        opacity:0.8,
+        backgroundColor:"#fff",
+        position:"absolute",
+        height:"75%",
+    },
+    w25:{
+        // flex:1,
+        width:"30%",
+        paddingLeft:15,
+        paddingBottom:5,
+        paddingTop:5,
+        paddingRight:15,
+    },
+    w75:{
+        // flex:1,
+        width:"70%",
+        paddingLeft:15,
+        paddingBottom:5,
+        paddingTop:5,
+        paddingRight:15,
+    },
+    row:{
+        flexDirection:"row",
+        marginTop:15
     },
     label:{
-        width: "30%",
-        textAlign: "center",
-        borderColor: "black",
-        marginTop: 5,
-        paddingBottom: 5,
-        color: "gray",
-        paddingTop:15,
-       
+        fontSize:18,
+        marginTop:5,
+        marginBottom:0,
+        paddingBottom:0
     },
     textInput:{
-        width: "60%",
-        paddingLeft:10,
-        paddingTop:5,
-        borderColor: "black",
-        marginTop: 5,
-        paddingBottom: 5,
-        color: "gray",
+        backgroundColor:"#FFF",
+        color:"#d7d7d7",
+        borderColor:"#0078ff",
         borderWidth:1,
-        borderColor:"#d7d7d7",
+        marginBottom:0,
+        paddingLeft:15,
         borderRadius:5
     },
     textCenter:{
-        width: "50%",
-        textAlign: "center",
-        borderColor: "black",
-        marginTop: 5,
-        paddingBottom: 5,
-        color: "gray"
-    },  
-    title:{
-        borderBottomColor:"#d7d7d7",
-        borderBottomWidth:1,
-        color:"black",
-        width:"100%",
-        fontWeight:"bold",
-        fontSize: 20,
-        height:"auto",
-        alignItems:"center",
-        textAlign: "center",
-        width: "100%",
-        marginBottom: 20,
-        paddingBottom:10
+        textAlign:"center"
     },
-    col:{
-        flexDirection:"row"
+    w50:{
+        width:"50%",
+        textAlign:"center",
+        paddingLeft:15,
+        paddingBottom:5,
+        paddingTop:5,
+        paddingRight:15,
+    },
+    btnPrimary:{
+        color:"#0051ff",
+        flex:1,
+        marginTop:5,
+        marginBottom:5,
+        marginRight:15,
+        marginLeft:15
+    },
+    btnDanger:{
+        color:"#ff0000",
+        flex:1,
+        marginTop:5,
+        marginBottom:5,
+        marginRight:15,
+        marginLeft:15
+    },
+    borderTop:{
+        width:"100%",
+        flex:1,
+        borderTopColor:"#00f9ff",
+        borderTopWidth:2,
+        paddingTop:25,
+        textAlign:"center"
+    },
+    logo:{
+        height:75,
+        
     }
   });
+export default Register;
