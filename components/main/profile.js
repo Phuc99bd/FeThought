@@ -24,13 +24,50 @@ const Profile = () =>{
           <TextInput style={styles.textInput} placeholder="..."></TextInput>
         </View>
       </View>
+      <View style={styles.row}>
+        <View style={styles.w25}>
+          <Text style={styles.label}>Tài khoản</Text>
+        </View>
+        <View style={styles.textInput}>
+          <TextInput style={styles.textInput} placeholder="..."></TextInput>
+        </View>
+      </View>
+      <View style={styles.row}>
+        <View style={styles.w25}>
+          <Text style={styles.label}>Ngày sinh</Text>
+        </View>
+        <View style={styles.textInput}>
+          <TextInput style={styles.textInput} placeholder="..."></TextInput>
+        </View>
+      </View>
+      <View style={styles.row}>
+        <View style={styles.w25}>
+          <Text style={styles.label}>Địa chỉ</Text>
+        </View>
+        <View style={styles.textInput1}>
+          <TextInput style={styles.textInput} placeholder="..." multiline={true}></TextInput>
+        </View>
+      </View>
+      <View style={styles.row}>
+        <View style={styles.w25}>
+          <Text style={styles.label}>Giới thiệu</Text>
+        </View>
+        <View style={styles.textInput1}>
+          <TextInput style={styles.textInput} placeholder="..." multiline={true}></TextInput>
+        </View>
+      </View>
+      
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   row:{
-    flexDirection:"row"
+    flexDirection:"row",
+    paddingRight:15,
+    paddingLeft:10,
+    paddingBottom:5,
+    paddingTop:15
   },
   w25:{
     width:"30%",
@@ -53,10 +90,30 @@ const styles = StyleSheet.create({
   textInput:{
     color:"#d7d7d7",
     borderRadius:5,
-    // borderColor:"#009fff",/
+    borderColor:"#009fff",
     borderWidth:1,
     flex:1,
-    paddingRight:25
+    
+  },
+  textInput1:{
+    color:"#d7d7d7",
+    borderRadius:5,
+    borderColor:"#009fff",
+    borderWidth:1,
+    flex:1,
+    height:75,
+    width:"100%"
+  },
+  btnExam:{
+    width:100,
+    height:30
+  },
+  Left:{
+    marginLeft:"auto"
+    
+  },
+  Right:{
+    marginRight:"auto"
   }
 });
 export default Profile;

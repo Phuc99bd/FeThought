@@ -24,6 +24,9 @@ const Index = () =>{
                 <View style={styles.btnContainer}><Button onPress={()=>onClickListenerLogin()} style={styles.btnprimary} color="#009fff" title="Đăng nhập"/></View>
                 <View style={styles.btnContainer}><Button onPress={()=>onClickListenerSignUp()} color="#0078ff" title="Đăng ký"/></View>
             </View>
+            <View>
+                <Button onPress={()=>onClickListenerResetPassword()} title="ResetPW"></Button>
+            </View>
         </View>
     );
 }
@@ -32,6 +35,9 @@ const onClickListenerLogin = ()=>{
 }
 const onClickListenerSignUp = ()=>{
     Actions.register();
+}
+const onClickListenerResetPassword = ()=>{
+    Actions.resetpassword();
 }
 const styles=StyleSheet.create({
     index:{
