@@ -26,9 +26,26 @@ const Index = () =>{
             </View>
             <View>
                 <Button onPress={()=>onClickListenerResetPassword()} title="ResetPW"></Button>
+                <Button onPress={()=>onClickListenerHomePage()} title="Hồ sơ"></Button>
+                <Button onPress={()=>onClickListenerCustomerSupport()} title="Hỗ trợ khách hàng"></Button>
+                <Button onPress={()=>onClickListenerQuestion()} title="Câu hỏi"></Button>
+                <Button onPress={()=>onClickListenerRandom()} title="Random"></Button>
+                <Button onPress={()=>onClickListenerLevel()} title="Level"></Button>
             </View>
         </View>
     );
+}
+const onClickListenerLevel=()=>{
+    Actions.level()
+}
+const onClickListenerRandom=()=>{
+    Actions.random()
+}
+const onClickListenerQuestion = ()=>{
+    Actions.question()
+}
+const onClickListenerCustomerSupport=()=>{
+    Actions.customersupport();
 }
 const onClickListenerLogin = ()=>{
     Actions.login();
@@ -38,6 +55,9 @@ const onClickListenerSignUp = ()=>{
 }
 const onClickListenerResetPassword = ()=>{
     Actions.resetpassword();
+}
+const onClickListenerHomePage = ()=>{
+    Actions.homepage();
 }
 const styles=StyleSheet.create({
     index:{
