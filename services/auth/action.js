@@ -12,6 +12,7 @@ import {
 let baseURL = `https://thoughtflash.herokuapp.com/api/v1`;
 import { AsyncStorage } from "react-native";
 
+// check login with email ,password 
 export const LoginRequest = (email , password)=>{
     return async dispatch=>{
 
@@ -30,7 +31,7 @@ export const LoginRequest = (email , password)=>{
         )
         .then(async(response)=>{
             let data= await response.json();
-            
+            // check case set state gobal
             switch(response.status){
                 case 404:                    
                     dispatch({type:AUTH_AUTHENTION_FAIL ,error: data.data , message: data.message });
@@ -55,6 +56,7 @@ export const AuthentionRequest = (email,otp)=>{
         })
         .then(async (response)=>{
             let data = await response.json();
+            // check case set state gobal
             switch(response.status){
                 case 404:
                     dispatch({type:AUTH_AUTHENTION_FAIL ,error: data.data , message: data.message });
@@ -72,6 +74,7 @@ export const AuthentionRequest = (email,otp)=>{
 }
 
 export const SendOTP = (email)=>{
+    // send OTP
     fetch(`${baseURL}/auth/get-otp?email=${email}&type=login`).then(async res=>{
     })
 }

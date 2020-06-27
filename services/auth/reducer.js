@@ -22,6 +22,7 @@ const initialState = {
     login: false
 }
 
+// dispatch call dispatch(action)
 const authReducer = (state = initialState , action) => {
     switch (action.type) {
         case AUTH_LOGIN_COMPLETED:

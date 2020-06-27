@@ -23,12 +23,14 @@ import Dialog from "react-native-dialog";
 
 
 const Login= ()=>{
+  // init state in component login
   let [email,setEmail] = useState(""),
    [password,setPassword] = useState(""),
    [typing_email , setType_email ] = useState(false),
    [typing_password , setType_password ] = useState(false)
 
   let dispatch = useDispatch();
+  // state gobal
   let authProps = propAuth().auth;
 
   const onLogin = ()=>{
@@ -37,12 +39,14 @@ const Login= ()=>{
       toValue: 40,
       duration: 250,
     }).start();
+    // call function in file actions
     dispatch(LoginRequest(email,password));
   }
   const onRefesh = ()=>{
     dispatch({type: 'AUTH_REFESH'});
   }
   if(authProps.authention){
+    // change view
     Actions.register();
   }
   const showToast = () => {
